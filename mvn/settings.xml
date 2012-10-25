@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/settings/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+		  
+  <pluginGroups>
+    <pluginGroup>com.takealot.plugin</pluginGroup>
+	<pluginGroup>org.apache.tomcat.maven</pluginGroup>
+  </pluginGroups>
+
+  <proxies>
+  </proxies>
+
+  <servers>
+  <server>
+      <id>internalRepo</id>
+      <username>test</username>
+      <password>test</password>
+    </server>
+    <server>
+      <id>releases</id>
+      <username>admin</username>
+      <password>password</password>
+    </server>  
+    <server>
+      <id>snapshots</id>
+      <username>admin</username>
+      <password>password</password>
+    </server>  
+    <server>
+      <id>thirdparty</id>
+      <username>admin</username>
+      <password>password</password>
+    </server> 	
+	
+	
+	<server>
+      <id>services-tomcat</id>
+      <username>manager</username>
+      <password>password</password>
+    </server> 
+	
+  </servers>
+
+
+  <mirrors>
+
+  <mirror>
+    <!--This is used to direct the public snapshots repo in the profile below over to a different nexus group -->
+      <id>public-snapshots</id>
+      <mirrorOf>public-snapshots</mirrorOf>
+      <url>http://aislingnexus.hq.takealot.com:8080/nexus/content/groups/public-snapshots/</url>
+    </mirror>
+    <mirror>
+      <!--This sends everything else to /public -->
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>http://aislingnexus.hq.takealot.com:8080/nexus/content/groups/public/</url>
+    </mirror>
+  </mirrors>
+  
+  <profiles>
+    <profile>
+            <id>dev</id>
+            <properties>
+            </properties>
+            <repositories>
+        		<repository>
+          			<id>central</id>
+          			<url>http://aislingnexus.hq.takealot.com:8080/nexus/content/groups/public/</url>
+          			<releases><enabled>true</enabled></releases>
+          			<snapshots><enabled>true</enabled></snapshots>
+            	</repository>
+				<repository>
+					<id>public-snapshots</id>
+					<url>http://aislingnexus.hq.takealot.com:8080/nexus/content/groups/public-snapshots/</url>
+					<releases><enabled>false</enabled></releases>
+					<snapshots><enabled>true</enabled></snapshots>
+				</repository> 			
+				<repository>
+					<id>spring-releases</id>
+					<url>http://aislingnexus.hq.takealot.com:8080/nexus/content/repositories/spring-release/</url>
+					<releases><enabled>false</enabled></releases>
+					<snapshots><enabled>true</enabled></snapshots>
+				</repository> 			
+			</repositories>
+     	   <pluginRepositories>			  			   
+            	<pluginRepository>
+          			<id>central</id>
+          			<url>http://aislingnexus.hq.takealot.com:8080/nexus/content/groups/public/</url>
+          			<releases><enabled>true</enabled></releases>
+          			<snapshots><enabled>true</enabled></snapshots>
+        		</pluginRepository>
+				<pluginRepository> 
+				<id>public-snapshots</id> 
+				<url>http://aislingnexus.hq.takealot.com:8080/nexus/content/groups/public-snapshots/</url>
+				<releases><enabled>false</enabled></releases> 
+				<snapshots><enabled>true</enabled></snapshots> 
+			</pluginRepository>
+		</pluginRepositories>	
+      </profile>
+   </profiles>
+
+  <activeProfiles>
+    <activeProfile>dev</activeProfile>
+  </activeProfiles>
+</settings>
